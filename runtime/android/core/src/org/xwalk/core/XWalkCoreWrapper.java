@@ -160,8 +160,8 @@ class XWalkCoreWrapper {
     }
 
     public static int attachXWalkCore() {
-        assert sReservedActivities.isEmpty();
-        assert sInstance != null;
+        //assert sReservedActivities.isEmpty();
+        //assert sInstance != null;
 
         Log.d(TAG, "Attach xwalk core");
         sProvisionalInstance = new XWalkCoreWrapper(XWalkEnvironment.getApplicationContext(), 1);
@@ -198,8 +198,8 @@ class XWalkCoreWrapper {
      * This method must be invoked on the UI thread.
      */
     public static void dockXWalkCore() {
-        assert sProvisionalInstance == null;
-        assert sInstance != null;
+        //assert sProvisionalInstance == null;
+        //assert sInstance != null;
 
         Log.d(TAG, "Dock xwalk core");
         sInstance = sProvisionalInstance;
