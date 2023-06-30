@@ -69,10 +69,10 @@ namespace {
 
 // Are cookies allowed for file:// URLs by default?
 const bool kDefaultFileSchemeAllowed = false;
-const char kPreKitkatDataDirectory[] = "app_database";
-const char kKitkatDataDirectory[] = "app_webview";
+//const char kPreKitkatDataDirectory[] = "app_database";
+//const char kKitkatDataDirectory[] = "app_webview";
 
-void ImportKitkatDataIfNecessary(const base::FilePath& old_data_dir,
+/*void ImportKitkatDataIfNecessary(const base::FilePath& old_data_dir,
                                  const base::FilePath& profile) {
   if (!base::DirectoryExists(old_data_dir))
     return;
@@ -103,25 +103,25 @@ void ImportPreKitkatDataIfNecessary(const base::FilePath& old_data_dir,
     }
   }
 }
+*/
+//void MoveUserDataDirIfNecessary(const base::FilePath& user_data_dir,
+  //                              const base::FilePath& profile) {
+ // if (base::DirectoryExists(profile))
+  //  return;
 
-void MoveUserDataDirIfNecessary(const base::FilePath& user_data_dir,
-                                const base::FilePath& profile) {
-  if (base::DirectoryExists(profile))
-    return;
-
-  if (!base::CreateDirectory(profile))
-    return;
+ // if (!base::CreateDirectory(profile))
+   // return;
 
   // Import pre-crosswalk-8 data.
-  ImportKitkatDataIfNecessary(user_data_dir, profile);
+  //ImportKitkatDataIfNecessary(user_data_dir, profile);
   // Import Android Kitkat System webview data.
-  base::FilePath old_data_dir = user_data_dir.DirName().Append(
-      kKitkatDataDirectory);
-  ImportKitkatDataIfNecessary(old_data_dir, profile);
+  //base::FilePath old_data_dir = user_data_dir.DirName().Append(
+   //   kKitkatDataDirectory);
+  //ImportKitkatDataIfNecessary(old_data_dir, profile);
   // Import pre-Kitkat System webview data.
-  old_data_dir = user_data_dir.DirName().Append(kPreKitkatDataDirectory);
-  ImportPreKitkatDataIfNecessary(old_data_dir, profile);
-}
+  //old_data_dir = user_data_dir.DirName().Append(kPreKitkatDataDirectory);
+  //ImportPreKitkatDataIfNecessary(old_data_dir, profile);
+//}
 
 void GetUserDataDir(FilePath* user_data_dir) {
   if (!base::PathService::Get(base::DIR_ANDROID_APP_DATA, user_data_dir)) {
@@ -323,23 +323,23 @@ net::CookieStore* CookieManager::GetCookieStore() {
   if (!cookie_store_) {
     FilePath user_data_dir;
     GetUserDataDir(&user_data_dir);
-    base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
-    if (command_line->HasSwitch(switches::kXWalkProfileName)) {
-      base::FilePath profile = user_data_dir.Append(command_line->GetSwitchValuePath(switches::kXWalkProfileName));
-      MoveUserDataDirIfNecessary(user_data_dir, profile);
-      user_data_dir = profile;
-    }
+    //base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
+    //if (command_line->HasSwitch(switches::kXWalkProfileName)) {
+    //  base::FilePath profile = user_data_dir.Append(command_line->GetSwitchValuePath(switches::kXWalkProfileName));
+    //  MoveUserDataDirIfNecessary(user_data_dir, profile);
+    //  user_data_dir = profile;
+    //}
 
     FilePath cookie_store_path = user_data_dir.Append(FILE_PATH_LITERAL("Cookies"));
 
  //   TENTA_LOG_COOKIE(INFO) << "!!! " << __func__ << " cookie_store_path=" << cookie_store_path.value();
-    content::CookieStoreConfig cookie_config(cookie_store_path,
-                                             true /* restore_old_session_cookies */,
-                                             true /* persist_session_cookies */,
-                                             nullptr /* storage_policy */);
-    cookie_config.client_task_runner = cookie_store_task_runner_;
+    //content::CookieStoreConfig cookie_config(cookie_store_path,
+     //                                        true /* restore_old_session_cookies */,
+     //                                        true /* persist_session_cookies */,
+     ///                                        nullptr /* storage_policy */);
+    //cookie_config.client_task_runner = cookie_store_task_runner_;
 
-    cookie_config.background_task_runner = cookie_store_backend_thread_.task_runner();
+    //cookie_config.background_task_runner = cookie_store_backend_thread_.task_runner();
 
     {
       base::AutoLock lock(accept_file_scheme_cookies_lock_);
@@ -350,17 +350,17 @@ net::CookieStore* CookieManager::GetCookieStore() {
       // TODO(mmenke): This call should be removed once we can deprecate and
       // remove the Android WebView 'CookieManager::setAcceptFileSchemeCookies'
       // method. Until then, note that this is just not a great idea.
-      cookie_config.cookieable_schemes.insert(
-          cookie_config.cookieable_schemes.begin(), net::CookieMonster::kDefaultCookieableSchemes,
-          net::CookieMonster::kDefaultCookieableSchemes + net::CookieMonster::kDefaultCookieableSchemesCount);
+      //cookie_config.cookieable_schemes.insert(
+        //  cookie_config.cookieable_schemes.begin(), net::CookieMonster::kDefaultCookieableSchemes,
+         // net::CookieMonster::kDefaultCookieableSchemes + net::CookieMonster::kDefaultCookieableSchemesCount);
       if (accept_file_scheme_cookies_)
-        cookie_config.cookieable_schemes.push_back(url::kFileScheme);
+      //  cookie_config.cookieable_schemes.push_back(url::kFileScheme);
       cookie_store_created_ = true;
     }
 #if defined(TENTA_CHROMIUM_BUILD)
     cookie_store_ = tenta::ext::CreateCookieStore(cookie_config, _tenta_store);
 #else
-    cookie_store_ = content::CreateCookieStore(cookie_config, nullptr);
+    //cookie_store_ = content::CreateCookieStore(cookie_config, nullptr);
 #endif
   }
 
@@ -372,7 +372,8 @@ void CookieManager::SetAcceptCookie(bool accept) {
 }
 
 bool CookieManager::AcceptCookie() {
-  return XWalkCookieAccessPolicy::GetInstance()->GetShouldAcceptCookies();
+  //return XWalkCookieAccessPolicy::GetInstance()->GetShouldAcceptCookies();
+  return false;
 }
 
 void CookieManager::SetCookie(const GURL& host, const std::string& cookie_value) {
