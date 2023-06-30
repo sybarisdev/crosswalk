@@ -368,7 +368,7 @@ net::CookieStore* CookieManager::GetCookieStore() {
 }
 
 void CookieManager::SetAcceptCookie(bool accept) {
-  XWalkCookieAccessPolicy::GetInstance()->SetGlobalAllowAccess(accept);
+  //XWalkCookieAccessPolicy::GetInstance()->SetGlobalAllowAccess(accept);
 }
 
 bool CookieManager::AcceptCookie() {
