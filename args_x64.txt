@@ -1,0 +1,21 @@
+import("//xwalk/build/android.gni")
+
+target_os = "android"
+target_cpu = "x64"
+is_official_build=true
+is_debug = false
+enable_nacl = false
+enable_plugins=false
+disable_bundled_extensions=true
+proprietary_codecs=false #disable to reduce size
+v8_use_snapshot=true
+multidex_in_release=true
+v8_enable_i18n_support=false
+disable_ftp_support=true
+enable_basic_print_dialog=false
+enable_basic_printing=false
+enable_nacl_nonsfi=false
+use_kerberos=false
+#symbol_level = 0
+#remove_webcore_debug_symbols = true
+#ffmpeg_branding = "Chrome" #disable to reduce size
