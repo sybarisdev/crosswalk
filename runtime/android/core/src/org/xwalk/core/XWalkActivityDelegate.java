@@ -49,9 +49,6 @@ public class XWalkActivityDelegate implements DecompressListener, ActivateListen
         return mIsXWalkReady && XWalkEnvironment.isDownloadMode();
     }
 
-    public void setXWalkApkUrl(String url) {
-        XWalkEnvironment.setXWalkApkUrl(url);
-    }
 
     public XWalkDialogManager getDialogManager() {
         return mDialogManager;
@@ -103,56 +100,9 @@ public class XWalkActivityDelegate implements DecompressListener, ActivateListen
 
     @Override
     public void onActivateFailed() {
-        if (mXWalkUpdater == null) {
-            if (XWalkEnvironment.isDownloadMode()) {
-                mXWalkUpdater = new XWalkUpdater(
-                    new XWalkBackgroundUpdateListener() {
-                        @Override
-                        public void onXWalkUpdateStarted() {
-                        }
+  
 
-                        @Override
-                        public void onXWalkUpdateProgress(int percentage) {
-                        }
-
-                        @Override
-                        public void onXWalkUpdateCancelled() {
-                            mCancelCommand.run();
-                        }
-
-                        @Override
-                        public void onXWalkUpdateFailed() {
-                            mCancelCommand.run();
-                        }
-
-                        @Override
-                        public void onXWalkUpdateCompleted() {
-                            XWalkLibraryLoader.startActivate(XWalkActivityDelegate.this);
-                        }
-                    },
-                    mActivity);
-            } else {
-                mXWalkUpdater = new XWalkUpdater(
-                    new XWalkUpdateListener() {
-                        @Override
-                        public void onXWalkUpdateCancelled() {
-                            mCancelCommand.run();
-                        }
-                    },
-                    mActivity, mDialogManager);
-            }
-        }
-
-        if (mXWalkUpdater.updateXWalkRuntime() && !XWalkEnvironment.isDownloadMode()) {
-            // Set the background to screen_background_dark temporarily if the default background
-            // is null in order to avoid the visual artifacts around the alert dialog
-            Window window = mActivity.getWindow();
-            if (window != null && window.getDecorView().getBackground() == null) {
-                Log.d(TAG, "Set the background to screen_background_dark");
-                window.setBackgroundDrawableResource(android.R.drawable.screen_background_dark);
-                mBackgroundDecorated = true;
-            }
-        }
+    
     }
 
     @Override

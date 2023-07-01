@@ -225,43 +225,7 @@ class XWalkLibraryLoader {
      * @param context The context to get DownloadManager
      * @param url The URL of the Crosswalk runtime
      */
-    public static void startDownloadManager(DownloadListener listener, Context context,
-            String url) {
-        new DownloadManagerTask(listener, context, url).execute();
-    }
-
-    /**
-     * Attempt to cancel download manager
-     *
-     * @return false if download is not running or could not be cancelled, true otherwise
-     */
-    public static boolean cancelDownloadManager() {
-        return sActiveTask != null && sActiveTask instanceof DownloadManagerTask
-                && sActiveTask.cancel(true);
-    }
-
-    /**
-     * Start downloading the Crosswalk runtime in background via HTTP connection
-     *
-     * <p>This method must be invoked on the UI thread.
-     *
-     * @param listener The {@link DownloadListener} to use
-     * @param context The context to get DownloadManager
-     * @param url The URL of the Crosswalk runtime
-     */
-    public static void startHttpDownload(DownloadListener listener, Context context, String url) {
-        new HttpDownloadTask(listener, context, url).execute();
-    }
-
-    /**
-     * Attempt to cancel http download
-     *
-     * @return False if download is not running or could not be cancelled, true otherwise
-     */
-    public static boolean cancelHttpDownload() {
-        return sActiveTask != null && sActiveTask instanceof HttpDownloadTask
-                && sActiveTask.cancel(true);
-    }
+    
 
     private static class DecompressTask extends android.os.AsyncTask<Void, Integer, Integer> {
         DecompressListener mListener;

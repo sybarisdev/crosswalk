@@ -25,7 +25,6 @@ class XWalkEnvironment {
     private static final String META_XWALK_ENABLE_DOWNLOAD_MODE = "xwalk_enable_download_mode";
     private static final String META_XWALK_DOWNLOAD_MODE = "xwalk_download_mode";
     private static final String META_XWALK_DOWNLOAD_MODE_UPDATE = "xwalk_download_mode_update";
-    private static final String META_XWALK_APK_URL = "xwalk_apk_url";
     private static final String META_XWALK_VERIFY = "xwalk_verify";
 
     private static final String PRIVATE_DATA_DIRECTORY_SUFFIX = "xwalkcore";
@@ -72,37 +71,6 @@ class XWalkEnvironment {
                 Context.MODE_PRIVATE).getAbsolutePath();
     }
 
-    public static void setXWalkApkUrl(String url) {
-        sXWalkApkUrl = url;
-        Log.d(TAG, "Crosswalk APK download URL: " + sXWalkApkUrl);
-    }
-
-    public static String getXWalkApkUrl() {
-        if (sXWalkApkUrl == null) {
-            String url = getApplicationMetaData(META_XWALK_APK_URL);
-            if (url == null) {
-                sXWalkApkUrl = "";
-            } else {
-                String archQuery = "arch=" + getRuntimeAbi();
-                try {
-                    URI uri = new URI(url);
-                    String query = uri.getQuery();
-                    if (query == null) {
-                        query = archQuery;
-                    } else {
-                        query += "&" + archQuery;
-                    }
-
-                    sXWalkApkUrl = new URI(uri.getScheme(), uri.getAuthority(), uri.getPath(),
-                            query, uri.getFragment()).toString();
-                } catch (URISyntaxException e) {
-                    throw new RuntimeException("Invalid xwalk_apk_url", e);
-                }
-            }
-            Log.d(TAG, "Crosswalk APK download URL: " + sXWalkApkUrl);
-        }
-        return sXWalkApkUrl;
-    }
 
     public static String getApplicationName() {
         if (sApplicationName == null) {
