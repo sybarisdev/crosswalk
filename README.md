@@ -1,22 +1,24 @@
-## Introduction
+# Introduction
 
 Crosswalk is an app runtime based on Chromium/Blink.
 
-It is an open source project started by the Intel Open Source Technology Center
-(http://www.01.org)
+### Ubuntu 18.04 is recommended for building xwalk.
 
-## Documents
+### Steps
 
-Check out our [wiki](http://crosswalk-project.org/#wiki).
+git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+export PATH=/home/[user]/depot_tools:$PATH
+export XWALK_OS_ANDROID=1
+gclient config --name=src/xwalk https://github.com/ks32/crosswalk.git@origin/ks_chromium_77
 
-## Community
+Edit this newly-created .gclient file, and add the following to the bottom:
+target_os = ['android']
 
-How to use Crosswalk you can ask on the mailing list: https://lists.crosswalk-project.org/mailman/listinfo/crosswalk-help
+gclient sync
 
-Development of Crosswalk: https://lists.crosswalk-project.org/mailman/listinfo/crosswalk-dev
+gn args out/Default_x64  
+(add arguments as in args_x64.txt)
 
-We are also on IRC: `#crosswalk` @ `chat.freenode.net`
+ninja -k3 -C out/Default_x64 xwalk_core_library
 
-## License
-
-Crosswalk's code uses the 3-clause BSD license, see our `LICENSE` file.
+(If build failed, try again)
