@@ -341,6 +341,12 @@ public class XWalkUpdater {
      * @return true if the updater is launched, false if current or another updater is already
      *         in updating, or the Crosswalk runtime doesn't need to be updated
      */
+    public boolean updateXWalkRuntime() {
+        
+
+        return false;
+    }
+
 
     /**
      * Dismiss the dialog showing and waiting for user's input.
@@ -367,6 +373,8 @@ public class XWalkUpdater {
      *
      * @return false if it is not a background updater or is not downloading, true otherwise.
      */
+    
+   
 
     @SuppressLint("PackageManagerGetSignatures")
     private boolean verifyDownloadedXWalkRuntime(String libFile) {

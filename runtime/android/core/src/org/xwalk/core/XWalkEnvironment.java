@@ -36,7 +36,6 @@ class XWalkEnvironment {
 
     private static String sDeviceAbi;
     private static String sRuntimeAbi;
-    private static String sXWalkApkUrl;
     private static String sApplicationName;
 
     private static Boolean sIsDownloadMode;

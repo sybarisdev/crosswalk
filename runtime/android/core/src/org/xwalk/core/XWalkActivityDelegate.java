@@ -10,15 +10,12 @@ import android.view.Window;
 
 import org.xwalk.core.XWalkLibraryLoader.ActivateListener;
 import org.xwalk.core.XWalkLibraryLoader.DecompressListener;
-import org.xwalk.core.XWalkUpdater.XWalkBackgroundUpdateListener;
-import org.xwalk.core.XWalkUpdater.XWalkUpdateListener;
 
 public class XWalkActivityDelegate implements DecompressListener, ActivateListener {
     private static final String TAG = "XWalkLib";
 
     private Activity mActivity;
     private XWalkDialogManager mDialogManager;
-    private XWalkUpdater mXWalkUpdater;
     private Runnable mCancelCommand;
     private Runnable mCompleteCommand;
 
