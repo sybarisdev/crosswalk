@@ -22,3 +22,9 @@ gn args out/Default_x64
 ninja -k3 -C out/Default_x64 xwalk_core_library
 
 (If build failed, try again)
+
+# Whats new 77.1.4.0
+
+Remove xwalk library update/download code for complince with Google Play policy
+
+fixes few build errors
